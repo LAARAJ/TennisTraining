@@ -62,7 +62,21 @@ public class AssessorTest {
     }
 
     @Test
-    public void should_assess_tie_break(){
+    public void should_assess_set_won_after_extra_game(){
+        Player sarahPlayer = new Player("sarah", new Score(0,7));
+        Player bernardPlayer = new Player("bernard", new Score(0,5));
+        tennisGame = new TennisGame(sarahPlayer, bernardPlayer);
+        assessor = new Assessor(tennisGame);
+
+        //act
+        assessor.update(gameState);
+
+        //assert
+        Assertions.assertEquals("Assessor: Set Winner sarah\r\n", outputStream.toString());
+    }
+
+    @Test
+    public void should_play_extra_game_after_tie_break(){
         //arrange
         Player sarahPlayer = new Player("sarah", new Score(0,6));
         Player bernardPlayer = new Player("bernard", new Score(0,6));
@@ -73,7 +87,15 @@ public class AssessorTest {
         assessor.update(null);
 
         //assert
-        String expectedOutput = "Assessor: TieBreak\r\n";
-        Assertions.assertEquals(expectedOutput, outputStream.toString());
+        String expectedOutput1 = "Assessor: TieBreak\r\n";
+        Assertions.assertEquals(expectedOutput1, outputStream.toString());
+
+        //act extra game
+        sarahPlayer.incrementGamesWon();
+        assessor.update(null);
+
+        //assert
+        String expectedOutput2 = "Assessor: Set Winner sarah\r\n";
+        Assertions.assertEquals(expectedOutput1 + expectedOutput2, outputStream.toString());
     }
 }

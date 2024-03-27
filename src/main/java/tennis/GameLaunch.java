@@ -6,42 +6,44 @@ import tennis.observers.RefereeObserver;
 public class GameLaunch {
 
     public static void main(String[] args) {
-        Player sarahPlayer = new Player("sarah", new Score(0,0));
+        Player sarahPlayer = new Player("sarah", new Score(0,6));
 
-        Player bernardPlayer = new Player("bernard", new Score(0,0));
+        Player bernardPlayer = new Player("bernard", new Score(0,5));
 
-        TennisGame game = new TennisGame(sarahPlayer, bernardPlayer);
+        TennisGame tennisGame = new TennisGame(sarahPlayer, bernardPlayer);
+
 
         BoardObserver boardObserver = new Board(sarahPlayer, bernardPlayer);
-
         RefereeObserver refereeObserver = new Referee();
+        Assessor assessorObserver = new Assessor(tennisGame);
 
-        Assessor assessorObserver = new Assessor(game);
-
-        game.addObserver(assessorObserver);
-        game.addObserver(refereeObserver);
-        game.addObserver(boardObserver);
+        tennisGame.addObserver(assessorObserver);
+        tennisGame.addObserver(refereeObserver);
+        tennisGame.addObserver(boardObserver);
 
         //SCENARIO
-        game.scorePoint(sarahPlayer);
-        game.scorePoint(sarahPlayer);
-        game.scorePoint(sarahPlayer);
 
-        game.scorePoint(bernardPlayer);
-        game.scorePoint(bernardPlayer);
-        game.scorePoint(bernardPlayer);
+        tennisGame.scorePoint(sarahPlayer);
+        tennisGame.scorePoint(sarahPlayer);
+        tennisGame.scorePoint(sarahPlayer);
 
-        game.scorePoint(sarahPlayer);
-        game.scorePoint(bernardPlayer);
+        tennisGame.scorePoint(bernardPlayer);
+        tennisGame.scorePoint(bernardPlayer);
+        tennisGame.scorePoint(bernardPlayer);   // Deuce
 
-        game.scorePoint(bernardPlayer);
-        game.scorePoint(sarahPlayer);
+        tennisGame.scorePoint(sarahPlayer);     // Advantage
+        tennisGame.scorePoint(bernardPlayer);   // Deuce
 
-        game.scorePoint(sarahPlayer);
-        game.scorePoint(sarahPlayer);
+        tennisGame.scorePoint(bernardPlayer);   // Advantage
+        tennisGame.scorePoint(sarahPlayer);     // Deuce
 
-        game.scorePoint(sarahPlayer);
-        game.scorePoint(sarahPlayer);
-        game.scorePoint(bernardPlayer);
+        tennisGame.scorePoint(bernardPlayer);   // Advantage
+        tennisGame.scorePoint(bernardPlayer);   // Winner => Tiebreak 6 vs 6
+
+        // Extra game
+        tennisGame.scorePoint(sarahPlayer);
+        tennisGame.scorePoint(sarahPlayer);
+        tennisGame.scorePoint(sarahPlayer);
+        tennisGame.scorePoint(sarahPlayer);     // 7 vs 6 => Set finished
     }
 }

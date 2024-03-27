@@ -35,8 +35,8 @@ public class BoardTest {
     @Test
     public void should_show_dashboard_correctly() {
         //arrange
-        Score player1Score = new Score(30, 2);
-        Score player2Score = new Score(15, 1);
+        Score player1Score = new Score(2, 2);
+        Score player2Score = new Score(1, 1);
         when(player1.getScore()).thenReturn(player1Score);
         when(player1.getName()).thenReturn("Sarah");
         when(player2.getScore()).thenReturn(player2Score);

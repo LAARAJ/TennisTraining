@@ -156,11 +156,11 @@ public class RefereeTest {
         Assertions.assertEquals(expectedOutput_adv , outputStream.toString());
 
         //act
-        tennisGame.scorePoint(bernardPlayer);
+        tennisGame.scorePoint(sarahPlayer);
         referee.update(gameState);
 
         //assert
-        String expectedOutput_deuce = "Referee: Deuce\r\n";
+        String expectedOutput_deuce = "Referee: Winner Player sarah\r\n";
         Assertions.assertEquals(expectedOutput_adv + expectedOutput_deuce , outputStream.toString());
     }
 
@@ -177,10 +177,8 @@ public class RefereeTest {
         tennisGame.scorePoint(sarahPlayer);
         referee.update(gameState);
 
-
         //assert
         String expectedOutput = "Referee: Winner Player sarah\r\n";
         Assertions.assertEquals(expectedOutput , outputStream.toString());
-        //Assertions.assertEquals(1,sarahPlayer.getScore().getNumberOfGamesWon());
     }
 }

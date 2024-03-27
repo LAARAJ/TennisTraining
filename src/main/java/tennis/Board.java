@@ -7,6 +7,7 @@ import tennis.observers.BoardObserver;
 @AllArgsConstructor
 @Getter
 public class Board implements BoardObserver {
+
     private Player player1;
     private Player player2;
 
@@ -28,6 +29,24 @@ public class Board implements BoardObserver {
 
     private void displayPlayerScore(Player player) {
         Score playerScore = player.getScore();
-        System.out.println(player.getName() + "\t\t" + playerScore.getCurrentGameScore() + "\t\t\t" + playerScore.getNumberOfGamesWon());
+        System.out.println(player.getName() + "\t\t" + showScore(playerScore.getCurrentGameScore()) + "\t\t\t" + playerScore.getNumberOfGamesWon());
     }
+
+    private String showScore(int currentGameScore) {
+        switch (currentGameScore){
+            case 0:
+                return "0";
+            case 1:
+                return "15";
+            case 2:
+                return "30";
+            case 3:
+                return "40";
+            case 4:
+                return "45";
+            default:
+                return "invalid score";
+        }
+    }
+
 }

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import tennis.factory.StateFactory;
 import tennis.observers.AssessorObserver;
 import tennis.observers.BoardObserver;
@@ -15,17 +15,18 @@ import tennis.states.GameState;
 
 @AllArgsConstructor
 @Getter
-@Builder
+@Setter
 public class TennisGame {
 	
 	private Player player1;
 	private Player player2;
 	private GameState gameState;
 
-
 	private final List<AssessorObserver> assessorObservers = new ArrayList<>();
 	private final List<RefereeObserver> refereeObservers = new ArrayList<>();
 	private final List<BoardObserver> boardObservers = new ArrayList<>();
+
+	private boolean isSetWon;
 
 	public TennisGame(Player player1, Player player2) {
 		this.player1 = player1;
@@ -34,6 +35,10 @@ public class TennisGame {
 	}
 
 	public void scorePoint(Player player){
+		if (isSetWon()) {
+			System.out.println("Set finished");
+			return;
+		}
 		gameState.scorePoint(player);
 		notifyReferee();
 		notifyAssessor();
@@ -77,19 +82,5 @@ public class TennisGame {
 	public GameState getCurrentState(){
 		return gameState;
 	}
-
-/**	private void checkSetEnd() {
-		if (player1.getGamesWon() >= 6 && player1.getGamesWon() - player2.getGamesWon() >= 2) {
-			// Player 1 wins the set
-			// Reset game scores for the next set
-			player1.resetGamesWon();
-			player2.resetGamesWon();
-		} else if (player2.getGamesWon() >= 6 && player2.getGamesWon() - player1.getGamesWon() >= 2) {
-			// Player 2 wins the set
-			// Reset game scores for the next set
-			player1.resetGamesWon();
-			player2.resetGamesWon();
-		}
-	}**/
 
 }

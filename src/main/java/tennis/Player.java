@@ -13,10 +13,15 @@ public class Player {
     public void incrementScore() {
     	this.score = new Score(this.score.getCurrentGameScore()+1, this.score.getNumberOfGamesWon());
     }
+
+    public void decreaseScore() {
+        this.score = new Score(this.score.getCurrentGameScore()-1, this.score.getNumberOfGamesWon());
+    }
     
     public void incrementGamesWon() {
     	this.score = new Score(0, this.score.getNumberOfGamesWon()+1);
     }
+
 
     public void resetScore(){
         this.score = new Score(0, this.score.getNumberOfGamesWon());

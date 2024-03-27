@@ -16,6 +16,10 @@ public class AdvantageState implements GameState{
     @Override
     public void scorePoint(Player player) {
         player.incrementScore();
+        if(opponentPlayer.getScore().getCurrentGameScore() == 4){
+            advantagedPlayer.decreaseScore();
+            opponentPlayer.decreaseScore();
+        }
         resetState();
     }
 
